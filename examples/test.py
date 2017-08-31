@@ -7,8 +7,8 @@ import json
 import re
 import os.path
 
-#API_HOST = "https://bitpay.com" #for production, live bitcoin
-API_HOST = "https://test.bitpay.com" #for testing, testnet bitcoin
+#API_HOST = "https://globee.com" #for production, live bitcoin
+API_HOST = "https://test.globee.com" #for testing, testnet bitcoin
 KEY_FILE = "/tmp/key.priv"
 TOKEN_FILE = "/tmp/token.priv"
 
@@ -31,14 +31,14 @@ f.close()
 if token == "":
     client = Client(API_HOST, False, key)
     pairingCode = client.create_token("merchant")
-    print "Please go to:  %s/dashboard/merchant/api-tokens  then enter \"%s\" then click the \"Find\" button, then click \"Approve\"" % (API_HOST, pairingCode)
+    print "Please go to:  %s/dashboard/merchant/api-docs-tokens  then enter \"%s\" then click the \"Find\" button, then click \"Approve\"" % (API_HOST, pairingCode)
     raw_input("When you've complete the above, hit enter to continue...")
     print "token is: %s" % client.tokens['merchant']
     f = open(TOKEN_FILE, 'w')
     f.write(client.tokens['merchant'])
     f.close()
 else:
-    print "Creating a bitpay client using existing tokens and private key from disk."
+    print "Creating a globee client using existing tokens and private key from disk."
     client = Client(API_HOST, False, key, {'merchant': token})
 
 print "Now we assume that the pairing code that we generated along with the crypto keys is paired with your merchant account"
@@ -77,7 +77,7 @@ def get_stuff_from_bitpays_restful_api(client, uri, token):
 
 """
 GET /settlements
-https://bitpay.com/api#resource-Settlements
+https://globee.com/api-docs#resource-Settlements
 """
 settlements = get_stuff_from_bitpays_restful_api(client, client.uri + "/settlements/", token)
 pp.pprint("These are your settlements: %s" % settlements)
@@ -86,7 +86,7 @@ pp.pprint("These are your settlements: %s" % settlements)
 print "Now that we have settlements, let's do ledger pages..."
 """
 GET /ledgers
-https://bitpay.com/api#resource-Ledgers
+https://globee.com/api-docs#resource-Ledgers
 """
 ledgers = get_stuff_from_bitpays_restful_api(client, client.uri + "/ledgers/", token)
 pp.pprint("These are your ledgers: %s" % ledgers)
