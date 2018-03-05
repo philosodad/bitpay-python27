@@ -7,8 +7,8 @@ import json
 import re
 import os.path
 
-#API_HOST = "https://bitpay.com" #for production, live bitcoin
-API_HOST = "https://test.bitpay.com" #for testing, testnet bitcoin
+#API_HOST = "https://globee.com" #for production, live bitcoin
+API_HOST = "https://test.globee.com" #for testing, testnet bitcoin
 KEY_FILE = "/tmp/key.priv"
 TOKEN_FILE = "/tmp/token.priv"
 
@@ -17,7 +17,7 @@ if os.path.isfile(KEY_FILE):
     f = open(KEY_FILE, 'r')
     key = f.read()
     f.close()
-    print("Creating a bitpay client using existing private key from disk.")
+    print("Creating a globee client using existing private key from disk.")
 else:
     key = bku.generate_pem()
     f = open(KEY_FILE, 'w')

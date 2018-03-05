@@ -7,8 +7,8 @@ import json
 import re
 import os.path
 
-#API_HOST = "https://bitpay.com" #for production, live bitcoin
-API_HOST = "https://test.bitpay.com" #for testing, testnet bitcoin
+#API_HOST = "https://globee.com" #for production, live bitcoin
+API_HOST = "https://test.globee.com" #for testing, testnet bitcoin
 KEY_FILE = "/tmp/key.priv"
 TOKEN_FILE = "/tmp/token.priv"
 pp = pprint.PrettyPrinter(indent=4)
@@ -18,7 +18,7 @@ if os.path.isfile(KEY_FILE):
     f = open(KEY_FILE, 'r')
     key = f.read()
     f.close()
-    print("Creating a bitpay client using existing private key from disk.")
+    print("Creating a globee client using existing private key from disk.")
 else:
     key = bku.generate_pem()
     f = open(KEY_FILE, 'w')
@@ -90,6 +90,6 @@ print("Creating a payout batch now")
 print("token = " + token)
 # posting a payout batch
 params = {"token":token, "notificationURL":"http://test.merchant.com/IPNlogger.php", "notificationEmail":"test@merchant.com", "effectiveDate":"2017-08-23", "amount":"400","currency":"USD","instructions":[ {"label":"Test1","address":"mzDTjhkfJfatXHRUWKcE2BXxHt4Pfz2PK7","amount":"300"},{"label":"Test2","address":"mfadguj41aYgEwPATAFnkKcKQNqhpNTrdi","amount":"100"}]}
-payoutBatch = post_to_bitpay_api(client, "https://test.bitpay.com", "payouts", params)
+payoutBatch = post_to_bitpay_api(client, "https://test.globee.com", "payouts", params)
 pp.pprint(payoutBatch)
 

@@ -7,7 +7,7 @@ import re
 
 class Client:
 
-    def __init__(self, api_uri="https://bitpay.com", insecure=False,
+    def __init__(self, api_uri="https://globee.com", insecure=False,
                  pem=key_utils.generate_pem(), tokens={}):
 
         self.uri = api_uri
@@ -15,12 +15,12 @@ class Client:
         self.pem = pem
         self.client_id = key_utils.get_sin_from_pem(pem)
         self.tokens = tokens
-        self.user_agent = 'bitpay-python'
+        self.user_agent = 'globee-python'
 
     def pair_pos_client(self, code):
         """
         POST /tokens
-        https://bitpay.com/api#resource-Tokens
+        https://globee.com/api-docs#resource-Tokens
         """
         if re.match("^\w{7,7}$", code) is None:
             raise BitPayArgumentError("pairing code is not legal")
@@ -40,7 +40,7 @@ class Client:
     def create_token(self, facade):
         """
         POST /tokens
-        https://bitpay.com/api#resource-Tokens
+        https://globee.com/api-docs#resource-Tokens
         """
         payload = {'id': self.client_id, 'facade': facade}
         headers = {"content-type": "application/json",
@@ -58,7 +58,7 @@ class Client:
     def create_invoice(self, params):
         """
         POST /invoices
-        https://bitpay.com/api#resource-Invoices
+        https://globee.com/api-docs#resource-Invoices
         """
         self.verify_invoice_params(params['price'], params['currency'])
         payload = json.dumps(params)
@@ -80,7 +80,7 @@ class Client:
     def get_invoice(self, invoice_id):
         """
         GET /invoices/:invoiceId
-        https://bitpay.com/api#resource-Invoices
+        https://globee.com/api-docs#resource-Invoices
         """
         uri = self.uri + "/invoices/" + invoice_id
         try:
@@ -94,7 +94,7 @@ class Client:
     def verify_tokens(self):
         """
         GET /tokens
-        https://bitpay.com/api#resource-Tokens
+        https://globee.com/api-docs-docs#resource-Tokens
         """
         xidentity = key_utils.get_compressed_public_key_from_pem(self.pem)
         xsignature = key_utils.sign(self.uri + "/tokens", self.pem)
